@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <title>Audio Insight – Live</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #161616;
+      color: #eee;
+      padding: 20px;
+    }
+
+    button {
+      padding: 10px 16px;
+      font-size: 16px;
+    }
+
+.meter {
+  width: 100%;
+  height: 20px;
+  background: #333;
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+
+    canvas {
+      margin-top: 20px;
+      background: #111;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="card bg-dark mb-4">
+        <div class="card-body">
+            <h1>🎤 Live Audio Analysis</h1>
+        </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+          <button id="startBtn">Start</button>
+          <button id="stopBtn" disabled>Stop</button>
+            </br>
+          </br>
+          <div id="meters">
+            <div id="rms">RMS: 0</div>
+            <div id="peak">Peak: 0</div>
+          </div>
+          <br>
+        <h3>Spectral Energy</h3>
+        <div id="energy">
+          <div id="lowEnergyText">Low: 0</div>
+          <div id="midEnergyText">Mid: 0</div>
+          <div id="highEnergyText">High: 0</div>
+        </div>
+    </div>
+    <div class="col">
+      <h3>Charts</h3>
+      
+      <h4>RMS Over Time</h4>
+      <canvas id="rmsChart" width="600" height="150"></canvas>
+      </hr>
+      <h4>Spectral Centroid</h4>
+      <canvas id="centroidChart" width="600" height="150"></canvas>
+      
+    </div>
+    
+    
+  </div>
+  <div class="row">
+        <h3>Final Result</h3>
+        <pre id="finalResult" style="
+            background:#111;
+            border:1px solid #333;
+            padding:10px;
+            color:#0f0;
+            max-width:100%;
+            white-space:pre-wrap;
+          "> Waiting…
+        </pre>
+  </div>
+
+  </div>
+</div>
+
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

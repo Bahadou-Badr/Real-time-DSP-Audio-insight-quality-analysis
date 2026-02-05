@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Audio WS Test</title>
+</head>
+<body>
+  <button id="start">Start</button>
+  <button id="stop">Stop</button>
+
+  <pre id="log"></pre>
+
+<script>
+let ws;
+let audioCtx;
+let processor;
+let source;
+
+const log = (msg) => {
+  document.getElementById("log").textContent += msg + "\n";
+};
+
+document.getElementById("start").onclick = async () => {
+  ws = new WebSocket("ws://localhost:8080/ws/audio");
+
+  ws.onmessage = (e) => {
+    log("==>" + e.data);
+  };
+
+  audioCtx = new AudioContext({ sampleRate: 44100 });
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+  source = audioCtx.createMediaStreamSource(stream);
+
+  processor = audioCtx.createScriptProcessor(4096, 1, 1);
+
+  processor.onaudioprocess = (e) => {
+    const input = e.inputBuffer.getChannelData(0);
+
+    // Convert Float32Array → ArrayBuffer
+    const buffer = new ArrayBuffer(input.length * 4);
+    const view = new DataView(buffer);
+
+    for (let i = 0; i < input.length; i++) {
+      view.setFloat32(i * 4, input[i], true);
+    }
+
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.send(buffer);
+    }
+  };
+
+  source.connect(processor);
+  processor.connect(audioCtx.destination);
+
+  log("🎤 streaming started");
+};
+
+document.getElementById("stop").onclick = () => {
+  processor.disconnect();
+  source.disconnect();
+  audioCtx.close();
+  ws.close();
+  log("Stopped streaming");
+};
+</script>
+</body>
+</html>
