@@ -10,3 +10,13 @@ type AnalysisResult struct {
 	MidEnergy        float64 `json:"mid_energy"`
 	HighEnergy       float64 `json:"high_energy"`
 }
+
+type FrameResult struct {
+	RMS              float64
+	Peak             float64
+	Silence          bool
+	SpectralCentroid float64
+	LowEnergy        float64
+	MidEnergy        float64
+	HighEnergy       float64
+}
