@@ -115,7 +115,7 @@ Live UI (meters & charts)
 
 Charts update continuously while recording and freeze when stopped, showing the final analysis result directly in the UI.
 
-### Design Goals
+## Design Goals
 
 - No duplicated DSP logic
 - Deterministic results between offline and live modes
@@ -126,7 +126,7 @@ Charts update continuously while recording and freeze when stopped, showing the 
     - Monitoring dashboards
     - ML-based audio quality scoring
 
-### Live Demo
+## Live Demo
 Below is a short demo showing the real-time audio analysis UI in action.
 
 - Microphone audio is captured in the browser
@@ -137,3 +137,5 @@ Below is a short demo showing the real-time audio analysis UI in action.
 
 This demo focuses on observability and architecture, not final UI polish.
 It demonstrates how offline DSP logic transitions naturally into real-time streaming.
+
+![Live Demo](./live_demo.gif)
